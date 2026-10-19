@@ -102,12 +102,6 @@ const {useState,useEffect}=React;
 const fmt=n=>Number(n||0).toLocaleString('ru-RU',{maximumFractionDigits:2});
 
 function App(){
-  const tg = window.Telegram?.WebApp;
-  const telegramUser = tg?.initDataUnsafe?.user;
-  const SUPABASE_URL = "https://heimqqthpppvrupzcxnf.supabase.co/functions/v1/rubin-profile";
-const SUPABASE_KEY = "sb_publishable_BHuuZjtTi9QlnEqELlLSXw_-NzGbokM;
-  async function loadRubinProfile() {
-  const tg = window.Telegram?.WebApp;
 
   if (!tg?.initData) {
     console.log("Telegram initData отсутствует");
