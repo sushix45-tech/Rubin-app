@@ -1,3 +1,5 @@
+<div id="root"></div>
+
 <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -97,42 +99,6 @@ const {useState,useEffect}=React;
 const fmt=n=>Number(n||0).toLocaleString('ru-RU',{maximumFractionDigits:2});
 
 function App(){
-
-  if (!tg?.initData) {
-    console.log("Telegram initData отсутствует");
-    return null;
-  }
-
-  const response = await fetch(
-    `${SUPABASE_URL}/functions/v1/rubin-profile`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "apikey": SUPABASE_KEY,
-        "Authorization": `Bearer ${SUPABASE_KEY}`
-      },
-      body: JSON.stringify({
-        initData: tg.initData
-      })
-    }
-  );
-
-  const result = await response.json();
-
-  if (!response.ok) {
-    throw new Error(result.error || "Ошибка rubin-profile");
-  }
-
-  return result;
-}
-
-  React.useEffect(() => {
-    if (tg) {
-      tg.ready();
-      tg.expand();
-    }
-  }, []);
  const tg=window.Telegram?.WebApp;
  const user=tg?.initDataUnsafe?.user;
  const [page,setPage]=useState('home');
