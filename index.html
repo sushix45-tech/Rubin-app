@@ -102,6 +102,15 @@ const {useState,useEffect}=React;
 const fmt=n=>Number(n||0).toLocaleString('ru-RU',{maximumFractionDigits:2});
 
 function App(){
+  const tg = window.Telegram?.WebApp;
+  const telegramUser = tg?.initDataUnsafe?.user;
+
+  React.useEffect(() => {
+    if (tg) {
+      tg.ready();
+      tg.expand();
+    }
+  }, []);
  const tg=window.Telegram?.WebApp;
  const user=tg?.initDataUnsafe?.user;
  const [page,setPage]=useState('home');
