@@ -104,6 +104,39 @@ const fmt=n=>Number(n||0).toLocaleString('ru-RU',{maximumFractionDigits:2});
 function App(){
   const tg = window.Telegram?.WebApp;
   const telegramUser = tg?.initDataUnsafe?.user;
+  const SUPABASE_URL = "https://heimqqthpppvrupzcxnf.supabase.co/functions/v1/rubin-profile";
+const SUPABASE_KEY = "sb_publishable_BHuuZjtTi9QlnEqELlLSXw_-NzGbokM;
+  async function loadRubinProfile() {
+  const tg = window.Telegram?.WebApp;
+
+  if (!tg?.initData) {
+    console.log("Telegram initData отсутствует");
+    return null;
+  }
+
+  const response = await fetch(
+    `${SUPABASE_URL}/functions/v1/rubin-profile`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_KEY,
+        "Authorization": `Bearer ${SUPABASE_KEY}`
+      },
+      body: JSON.stringify({
+        initData: tg.initData
+      })
+    }
+  );
+
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw new Error(result.error || "Ошибка rubin-profile");
+  }
+
+  return result;
+}
 
   React.useEffect(() => {
     if (tg) {
